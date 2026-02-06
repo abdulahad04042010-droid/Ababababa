@@ -5,12 +5,7 @@
 <title>For My Valentine ❤️</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
 body{
   height:100vh;
@@ -25,68 +20,91 @@ body{
 .container{
   text-align:center;
   background:rgba(255,255,255,0.15);
-  padding:30px 20px;
+  padding:25px 20px;
   border-radius:22px;
   box-shadow:0 15px 40px rgba(0,0,0,0.25);
-  max-width:320px;
+  max-width:330px;
 }
 
-h1{font-size:22px;margin-bottom:12px;}
 p{font-size:15px;line-height:1.6;}
+h1{font-size:22px;margin-bottom:10px;}
 
 button{
   margin:10px 5px 0;
   padding:12px 25px;
-  font-size:15px;
   border:none;
   border-radius:30px;
   background:white;
   color:#ff4d6d;
+  font-size:15px;
   cursor:pointer;
-  transition:0.3s;
 }
-button:hover{transform:scale(1.08);}
 
 .page{display:none;}
 .page.active{display:block;}
 
-/* Image page */
-.gallery img{
-  width:100%;
-  border-radius:15px;
-  margin-bottom:12px;
+/* IMAGE PAGE */
+.gallery{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:center;
 }
 
-/* Slide Page */
-.slide-page{
+.photo{
+  width:110px;
+  height:110px;
+  background:white;
+  border-radius:50%;
+  padding:6px;
+}
+
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+/* Animations */
+.bounce{animation:bounceIn 1s;}
+.fly{animation:flyIn 1s;}
+.fade{animation:fadeIn 1.2s;}
+.zoom{animation:zoomIn 1s;}
+.rotate{animation:rotateIn 1s;}
+
+@keyframes bounceIn{
+  0%{transform:scale(0.3);}
+  60%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+@keyframes flyIn{
+  from{transform:translateX(-200px);opacity:0;}
+  to{transform:translateX(0);opacity:1;}
+}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes zoomIn{from{transform:scale(0);}to{transform:scale(1);}}
+@keyframes rotateIn{
+  from{transform:rotate(-180deg) scale(0);}
+  to{transform:rotate(0) scale(1);}
+}
+
+/* Slide pages */
+.slide{
   position:fixed;
-  left:0;
   bottom:-100%;
+  left:0;
   width:100%;
   height:100%;
   background:linear-gradient(135deg,#ff758f,#ff4d6d);
   display:flex;
   justify-content:center;
   align-items:center;
+  transition:0.6s;
+  z-index:10;
   text-align:center;
-  transition:0.6s ease;
-  z-index:5;
 }
-.slide-page.show{bottom:0;}
-.slide-box{padding:30px;}
-
-/* Floating Hearts */
-.heart{
-  position:absolute;
-  bottom:-20px;
-  color:rgba(255,255,255,0.7);
-  animation:float 6s linear infinite;
-}
-
-@keyframes float{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(-100vh);opacity:0;}
-}
+.slide.show{bottom:0;}
 </style>
 </head>
 
@@ -94,112 +112,83 @@ button:hover{transform:scale(1.08);}
 
 <div class="container">
 
-  <div class="page active" id="page1">
-    <h1>OPEN 💌</h1>
-    <button onclick="nextPage(2)">Open ❤️</button>
-  </div>
+<div class="page active" id="p1">
+  <h1>OPEN 💌</h1>
+  <button onclick="go(2)">Open ❤️</button>
+</div>
 
-  <div class="page" id="page2">
-    <p>
-      Hey babe 😘 I love you too much 💞.....<br><br>
-      I love you forever and ever babe<br>
-      you are my only and one 💞.....
-    </p>
-    <button onclick="nextPage(3)">Next 💕</button>
-    <button onclick="nextPage(1)">Back 🔙</button>
-  </div>
+<div class="page" id="p2">
+  <p>
+    Hey babe 😘 I love you too much 💞.....<br><br>
+    I love you forever and ever babe<br>
+    you are my only and one 💞.....
+  </p>
+  <button onclick="go(3)">Next 💕</button>
+</div>
 
-  <div class="page" id="page3">
-    <p>
-      Trang,<br>
-      Khoảng cách chỉ là một con số,<br>
-      vì trái tim anh luôn tìm được đường đến với em.<br><br>
-      Mỗi ngày không có em bên cạnh,<br>
-      anh chỉ nhớ em nhiều hơn một chút…<br><br>
-      Valentine này anh không thể nắm tay em,<br>
-      nhưng tình yêu của anh chưa bao giờ rời xa.<br>
-      Anh yêu em, Trang. 💖
-    </p>
-    <button onclick="nextPage(4)">Next ❤️</button>
-    <button onclick="nextPage(2)">Back 🔙</button>
-  </div>
+<div class="page" id="p3">
+  <p>
+    Trang,<br>
+    Khoảng cách chỉ là một con số,<br>
+    vì trái tim anh luôn tìm được đường đến với em.<br><br>
+    Valentine này anh không thể nắm tay em,<br>
+    nhưng tình yêu của anh chưa bao giờ rời xa.<br>
+    Anh yêu em, Trang. 💖
+  </p>
+  <button onclick="go(4)">Next ❤️</button>
+</div>
 
-  <div class="page" id="page4">
-    <p>
-      Nếu yêu là chờ đợi,<br>
-      anh nguyện chờ em cả đời.<br>
-      Nếu nhớ là nỗi đau,<br>
-      anh vẫn muốn đau vì em.<br><br>
-      Giữa muôn ngàn khoảng cách,<br>
-      trái tim anh chỉ hướng về một người…<br>
-      chính là em. 💫
-    </p>
-    <button onclick="nextPage(5)">Next 💖</button>
-    <button onclick="nextPage(3)">Back 🔙</button>
-  </div>
+<div class="page" id="p4">
+  <p>
+    Nếu yêu là chờ đợi,<br>
+    anh nguyện chờ em cả đời.<br>
+    Nếu nhớ là nỗi đau,<br>
+    anh vẫn muốn đau vì em.<br><br>
+    chính là em. 💫
+  </p>
+  <button onclick="go(5)">Next 💖</button>
+</div>
 
-  <!-- IMAGE PAGE -->
-  <div class="page" id="page5">
-    <div class="gallery">
-      <img src="https://img.sanishtech.com/u/461f639ea2fa4b7a776afdd867908c54.jpg">
-      <img src="https://img.sanishtech.com/u/1684be1d6a15cc6a209ecbc85878cfc6.jpg">
-      <img src="https://img.sanishtech.com/u/827fd331a35a4ff64fdae29e680a8921.png">
-      <img src="https://img.sanishtech.com/u/15345914ac9955492b5c3f5e88ffc6b5.png">
-      <img src="https://img.sanishtech.com/u/dc13dfb398bc46dd5429101e40c60ad0.png">
-    </div>
-    <button onclick="nextPage(6)">Next 💝</button>
-    <button onclick="nextPage(4)">Back 🔙</button>
+<!-- IMAGE PAGE -->
+<div class="page" id="p5">
+  <div class="gallery">
+    <div class="photo bounce"><img src="https://img.sanishtech.com/u/461f639ea2fa4b7a776afdd867908c54.jpg"></div>
+    <div class="photo fly"><img src="https://img.sanishtech.com/u/1684be1d6a15cc6a209ecbc85878cfc6.jpg"></div>
+    <div class="photo fade"><img src="https://img.sanishtech.com/u/827fd331a35a4ff64fdae29e680a8921.png"></div>
+    <div class="photo zoom"><img src="https://img.sanishtech.com/u/15345914ac9955492b5c3f5e88ffc6b5.png"></div>
+    <div class="photo rotate"><img src="https://img.sanishtech.com/u/dc13dfb398bc46dd5429101e40c60ad0.png"></div>
   </div>
+  <button onclick="go(6)">Next 💝</button>
+</div>
 
-  <div class="page" id="page6">
-    <h1>Will you be my valentine.... 💝</h1>
-    <button onclick="yesLove()">YES 💖</button>
-    <button onclick="noLove()">NO 🙈</button>
-  </div>
+<div class="page" id="p6">
+  <h1>Will you be my Valentine 💝</h1>
+  <button onclick="yes()">YES 💖</button>
+  <button onclick="no()">NO 🙈</button>
+</div>
 
 </div>
 
-<div class="slide-page" id="yesPage">
-  <div class="slide-box">
-    <h1>yayyy I knew it.. ! 💖</h1>
+<div class="slide" id="yes">
+  <div>
+    <h1>yayyy I knew it 💖</h1>
     <p>I love you soo much 😘</p>
-    <button onclick="closeSlide()">Back 🔙</button>
   </div>
 </div>
 
-<div class="slide-page" id="noPage">
-  <div class="slide-box">
+<div class="slide" id="no">
+  <div>
     <h1>You don't love me 😭😭😣</h1>
-    <button onclick="closeSlide()">Back 🔙</button>
   </div>
 </div>
 
 <script>
-function nextPage(n){
+function go(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page'+n).classList.add('active');
+  document.getElementById('p'+n).classList.add('active');
 }
-
-function yesLove(){
-  document.getElementById("yesPage").classList.add("show");
-}
-function noLove(){
-  document.getElementById("noPage").classList.add("show");
-}
-function closeSlide(){
-  document.getElementById("yesPage").classList.remove("show");
-  document.getElementById("noPage").classList.remove("show");
-}
-
-setInterval(()=>{
-  const heart=document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(15+Math.random()*20)+"px";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},300);
+function yes(){document.getElementById('yes').classList.add('show');}
+function no(){document.getElementById('no').classList.add('show');}
 </script>
 
 </body>
